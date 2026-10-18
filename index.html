@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8d1019">
+<title>Ayudha Pooja Surprise | Brewkspace / F9 CYBRISKTECH</title>
+<style>
+:root{--red:#8d1019;--deep:#4b0710;--gold:#ffd76a;--gold2:#f4ad27;--cream:#fff4d8;--ink:#411016}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;color:var(--cream);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:radial-gradient(ellipse at top,#b72a28 0,#7c0d18 45%,#35050b 100%);overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;background-image:radial-gradient(#ffd76a 1px,transparent 1px);background-size:24px 24px}
+header{position:relative;text-align:center;padding:20px 16px 8px;z-index:1}.brand{font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:800}.brand span{color:#fff4d8}.divider{color:var(--gold2);padding:0 7px}
+main{max-width:900px;margin:auto;padding:10px 16px 50px;position:relative;z-index:1}.panel{border:1px solid #ffda795c;background:linear-gradient(145deg,#8f1820eF,#4b0710f2);border-radius:26px;box-shadow:0 22px 70px #18000680;padding:clamp(20px,5vw,42px);text-align:center;position:relative;overflow:hidden}
+.panel:after{content:"✦  ✧  ✦";position:absolute;top:12px;left:0;right:0;color:#ffcf56;opacity:.5;letter-spacing:1.8em;font-size:.8rem;pointer-events:none}
+.kicker{margin-top:18px;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;font-size:.76rem;font-weight:800}
+h1{font-family:Georgia,'Times New Roman',serif;font-size:clamp(2.4rem,8vw,5rem);line-height:1.02;margin:14px 0;color:#ffe6a0;text-shadow:0 4px 0 #77200c,0 0 28px #ffba36a8}
+.subtitle{max-width:580px;margin:0 auto 22px;line-height:1.65;color:#fff3d7}
+.motifs{font-size:clamp(2rem,7vw,3.6rem);letter-spacing:.12em;margin:20px 0;filter:drop-shadow(0 3px 7px #240006)}
+button{border:0;border-radius:999px;padding:14px 23px;font-weight:850;font-size:1rem;cursor:pointer;transition:transform .15s,filter .15s;touch-action:manipulation}
+button:hover{transform:translateY(-2px);filter:brightness(1.08)}button:focus-visible{outline:3px solid white;outline-offset:4px}
+.primary{color:#4b0710;background:linear-gradient(135deg,#fff0a6,#ffbd36);box-shadow:0 7px 0 #a75b12,0 12px 25px #25000660}
+.secondary{color:#ffe7a0;background:#ffffff12;border:1px solid #ffda7980;margin-left:8px}
+.instructions{font-size:.92rem;color:#f9dca4;margin-top:16px}
+#gameArea{display:none;margin-top:18px}
+.gameTop{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px;font-weight:800;color:#ffe7a0}
+#gameCanvas{display:block;width:100%;height:min(55vh,420px);min-height:290px;border:1px solid #ffda7980;border-radius:18px;background:linear-gradient(#5b0813,#26050a);touch-action:manipulation}
+.gameControls{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:14px}.small{font-size:.85rem;color:#f9dca4;margin-top:10px}
+#result{display:none;margin-top:18px;animation:rise .7s ease both}
+.wishTitle{font-family:Georgia,serif;color:#ffe7a0;font-size:clamp(2rem,7vw,4.1rem);line-height:1.06;text-shadow:0 0 24px #ffcf56a6;margin:16px 0}
+.wishCopy{line-height:1.8;max-width:620px;margin:0 auto 20px}
+.signature{border-top:1px solid #ffda7966;margin:22px auto 0;padding-top:18px;max-width:530px;font-weight:850;letter-spacing:.06em;color:#ffdf85}
+footer{text-align:center;color:#e9bd80;font-size:.78rem;padding:18px 12px 28px;letter-spacing:.04em}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:5;overflow:hidden}.piece{position:absolute;top:-18px;animation:fall linear forwards;font-size:20px}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.2}}@keyframes rise{from{opacity:0;transform:translateY(22px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}@keyframes glow{50%{filter:drop-shadow(0 0 15px #ffcf56)}}
+.lamp{display:inline-block;animation:glow 2s infinite}
+
+/* Blessing animation shown only on the existing win screen */
+.divine-blessings{display:none}
+.blessing-card{position:relative;isolation:isolate;overflow:hidden;border:1px solid #ffda797a;border-radius:18px;padding:15px 10px 13px;background:linear-gradient(145deg,#6e1018c9,#35060dd9);box-shadow:inset 0 0 22px #ffcf5612,0 8px 24px #18000635;animation:blessingFloat 3.6s ease-in-out infinite}
+.blessing-card:nth-child(2){animation-delay:.35s}.blessing-card:nth-child(3){animation-delay:.7s}
+.blessing-card:before{content:"";position:absolute;z-index:-1;width:105px;height:105px;left:50%;top:4px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle,#ffe7a07a 0,#ffcf562b 42%,transparent 72%);animation:blessingHalo 2.8s ease-in-out infinite}
+.blessing-symbol{font-size:clamp(2.1rem,6vw,3.25rem);line-height:1.3;filter:drop-shadow(0 0 12px #ffd76a85);animation:blessingGlow 2.4s ease-in-out infinite}
+.blessing-name{font-family:Georgia,'Times New Roman',serif;font-weight:800;color:#ffe6a0;margin-top:6px;font-size:clamp(.85rem,2.5vw,1.05rem)}
+.blessing-line{font-size:.76rem;color:#f9dca4;line-height:1.45;margin-top:5px}
+.blessing-intro{max-width:600px;margin:0 auto;color:#ffe7a0;font-weight:750;line-height:1.65}
+@keyframes blessingFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes blessingHalo{0%,100%{opacity:.45;scale:.9}50%{opacity:1;scale:1.12}}
+@keyframes blessingGlow{0%,100%{filter:drop-shadow(0 0 6px #ffd76a5c)}50%{filter:drop-shadow(0 0 17px #ffd76a)}}
+
+/* Real devotional artwork appears only after winning */
+.blessing-artwork{display:block;width:100%;max-width:100%;height:auto;margin:16px auto 20px;border:1px solid #ffda7980;border-radius:18px;box-shadow:0 12px 34px #18000680;animation:artGlow 3.5s ease-in-out infinite;object-fit:cover}
+@keyframes artGlow{0%,100%{box-shadow:0 8px 28px #18000670}50%{box-shadow:0 8px 34px #ffcf5660}}
+@media(max-width:520px){.blessing-artwork{border-radius:12px;margin:12px auto 16px}}
+@media(max-width:520px){.panel{border-radius:20px;padding:20px 14px}.secondary{margin:10px 0 0}.brand{font-size:.7rem}.gameTop{font-size:.9rem}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div id="confetti" aria-hidden="true"></div>
+<header><div class="brand">Brewkspace <span class="divider">/</span> F9 CYBRISKTECH</div></header>
+<main>
+<section class="panel" id="welcome">
+<div class="kicker">One team · Many talents · A brighter future</div>
+<div class="motifs" aria-hidden="true">🎨 💻 🤖 ✨ 📐</div>
+<h1>The Festive<br>Surprise Challenge!</h1>
+<p class="subtitle">Catch the falling golden symbols, reach <strong>12 points</strong>, and unlock your own special Ayudha Pooja message.</p>
+<p class="subtitle" style="margin-top:16px">One game for everyone. Win the challenge to reveal a special festive message just for you!</p>
+<label for="playerName" style="display:block;margin:15px 0 7px;color:#ffe7a0;font-weight:700">Your name (optional)</label>
+<input id="playerName" maxlength="32" placeholder="Enter your name" autocomplete="given-name" style="width:min(100%,360px);padding:13px 16px;border-radius:14px;border:1px solid #ffda7980;background:#4b0710;color:#fff4d8;font:inherit;text-align:center">
+<div style="margin-top:20px"><button class="primary" id="startBtn">Start the Challenge ✨</button></div>
+<div class="instructions">Catch the falling golden symbols with your basket. Move it using your mouse, finger or keyboard.</div>
+</section>
+<section id="gameArea" class="panel" aria-label="Golden tools game">
+<div class="gameTop"><span>✨ Score: <b id="score">0</b> / 12</span><span>⏱️ Time: <b id="time">30</b>s</span><span>🌼 Misses: <b id="misses">0</b> / 5</span></div>
+<canvas id="gameCanvas" aria-label="Catch falling golden tools by moving the basket"></canvas>
+<div class="gameControls"><button class="primary" id="leftBtn" aria-label="Move basket left">⬅ Move left</button><button class="primary" id="rightBtn" aria-label="Move basket right">Move right ➡</button></div>
+<div class="small">Catch the falling team symbols. Reach 12 points to unlock the greeting!</div>
+</section>
+<section id="result" class="panel">
+<div class="motifs" aria-hidden="true"><span class="lamp">🪔</span> 🌼 ✨ 🌼 <span class="lamp">🪔</span></div>
+<div class="kicker" id="winnerKicker">Challenge unlocked</div>
+<img class="blessing-artwork" src="ayudha-pooja-blessings.png" alt="Devotional artwork of Goddess Saraswati, Lord Ganesha, and Goddess Durga surrounded by golden temple lights" loading="eager">
+<div class="wishTitle">Happy Ayudha Pooja!</div>\n<p id="personalWin" class="wishCopy" style="color:#ffe7a0;font-weight:800;font-size:1.08rem"></p>
+<p id="teamWinCopy" class="wishCopy">Every great idea starts with people who imagine, create, solve problems and make technology meaningful. May this Ayudha Pooja bring fresh inspiration, thoughtful design, clever solutions and success to every one of us.</p>
+<p class="wishCopy">Wishing you and your family a joyful, peaceful and prosperous Ayudha Pooja. 🙏</p>
+<div class="signature">Brewkspace <span class="divider">/</span> F9 CYBRISKTECH<br><span style="font-size:.85rem;font-weight:500;letter-spacing:0">A special festive wish, just for you.</span></div>
+<div class="gameControls"><button class="primary" id="shareBtn">Share the Greeting ↗</button><button class="secondary" id="againBtn">Play Again</button></div>
+<p id="shareStatus" class="small" role="status"></p>
+</section>
+<section id="retry" class="panel" style="display:none;margin-top:18px">
+<div class="motifs">🌼 🛠️ 🌼</div><h2>Almost there!</h2><p class="subtitle">Every great team deserves a little practice. Try again and unlock your festive greeting!</p><button class="primary" id="retryBtn">Try Again</button>
+</section>
+</main>
+<footer>CELEBRATING CREATIVITY · TEAMWORK · SUCCESS<br>Made with festive cheer by Brewkspace / F9 CYBRISKTECH · Happy Ayudha Pooja 🪔</footer>
+<script>
+(()=>{
+const canvas=document.getElementById('gameCanvas'),ctx=canvas.getContext('2d');
+const welcome=document.getElementById('welcome'),gameArea=document.getElementById('gameArea'),result=document.getElementById('result'),retry=document.getElementById('retry');
+const scoreEl=document.getElementById('score'),timeEl=document.getElementById('time'),missesEl=document.getElementById('misses');
+let w=0,h=0,score=0,misses=0,time=30,items=[],basket={x:0,y:0,width:92,height:20},running=false,raf=0,last=0,spawn=0,timer=null,keys={},playerName='';
+const winMessages=[
+ {emoji:'🌟',title:'The Golden Star',line:'Your effort brought a little extra sparkle to the celebration. Keep shining and turning every new day into an opportunity.',achievement:'The Golden Star'},
+ {emoji:'✨',title:'The Bright Spark',line:'You caught the moment and made it yours! May your days be full of fresh ideas, happy surprises and meaningful wins.',achievement:'The Bright Spark'},
+ {emoji:'🏆',title:'The Festive Champion',line:'Challenge conquered! May the same energy and determination bring you success in everything you set out to do.',achievement:'The Festive Champion'},
+ {emoji:'🪔',title:'The Light Bringer',line:'May your creativity light the way to wonderful opportunities, joyful moments and new achievements this year.',achievement:'The Light Bringer'},
+ {emoji:'🌼',title:'The Joy Spreader',line:'A little play, a little celebration, and a lot of good wishes! May happiness and prosperity follow you and your family.',achievement:'The Joy Spreader'},
+ {emoji:'🎉',title:'The Celebration Star',line:'You made this festive challenge memorable. Keep celebrating progress, sharing kindness and making great things happen.',achievement:'The Celebration Star'},
+ {emoji:'💫',title:'The Spark Catcher',line:'You caught the festive spark! May your next chapter bring confidence, exciting possibilities and plenty of reasons to smile.',achievement:'The Spark Catcher'},
+ {emoji:'🌈',title:'The Good-Vibes Winner',line:'May this Ayudha Pooja bring balance, positivity, good health and bright beginnings to you and your loved ones.',achievement:'The Good-Vibes Winner'}
+];
+let shareMessage='';
+const icons=['🌼','✨','🪔','⭐','🎉','💫','🌸','🏵️','🎊','🌟','🪷','✦'];
+function resize(){const r=canvas.getBoundingClientRect();const dpr=Math.min(window.devicePixelRatio||1,2);w=r.width;h=r.height;canvas.width=Math.floor(w*dpr);canvas.height=Math.floor(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);basket.y=h-42;basket.x=Math.min(Math.max(basket.x,0),w-basket.width);draw();}
+function reset(){score=0;misses=0;time=30;items=[];basket.x=w/2-basket.width/2;scoreEl.textContent=score;timeEl.textContent=time;missesEl.textContent=misses;retry.style.display='none';result.style.display='none';welcome.style.display='none';gameArea.style.display='block';resize();running=true;last=performance.now();spawn=0;clearInterval(timer);timer=setInterval(()=>{if(!running)return;time--;timeEl.textContent=time;if(time<=0)end(false)},1000);cancelAnimationFrame(raf);raf=requestAnimationFrame(loop);}
+function draw(){if(!ctx)return;ctx.clearRect(0,0,w,h);ctx.strokeStyle='rgba(255,215,106,.12)';for(let x=20;x<w;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}items.forEach(it=>{ctx.font='29px system-ui';ctx.textAlign='center';ctx.fillText(it.icon,it.x,it.y)});ctx.fillStyle='#f7b72f';ctx.beginPath();ctx.roundRect(basket.x,basket.y,basket.width,basket.height,5);ctx.fill();ctx.fillStyle='#ffe7a0';ctx.fillRect(basket.x+6,basket.y+4,basket.width-12,4);ctx.font='23px system-ui';ctx.textAlign='center';ctx.fillText('🧺',basket.x+basket.width/2,basket.y+1);}
+function loop(now){if(!running)return;const dt=Math.min((now-last)/16,2);last=now;if(keys.ArrowLeft||keys.a)basket.x-=6*dt;if(keys.ArrowRight||keys.d)basket.x+=6*dt;basket.x=Math.max(0,Math.min(w-basket.width,basket.x));spawn+=now-(last||now);if(Math.random()<.028*dt && items.length<7)items.push({x:20+Math.random()*(w-40),y:-10,vy:2.1+Math.random()*2.2,icon:icons[Math.floor(Math.random()*icons.length)]});items.forEach(it=>it.y+=it.vy*dt);items=items.filter(it=>{if(it.y>=basket.y-2&&it.y<=basket.y+basket.height+12&&it.x>=basket.x-5&&it.x<=basket.x+basket.width+5){score++;scoreEl.textContent=score;if(score>=12){end(true)}return false}if(it.y>h+20){misses++;missesEl.textContent=misses;if(misses>=5)end(false);return false}return true});draw();if(running)raf=requestAnimationFrame(loop);}
+function end(won){if(!running)return;running=false;clearInterval(timer);cancelAnimationFrame(raf);if(won){
+ gameArea.style.display='none';result.style.display='block';
+ const award=winMessages[Math.floor(Math.random()*winMessages.length)];
+ const greeting=playerName ? 'Congratulations, '+playerName+'!' : 'Congratulations, champion!';
+ document.getElementById('winnerKicker').textContent=award.emoji+' Your surprise is unlocked';
+ document.getElementById('personalWin').textContent=greeting+' You earned the title: '+award.title+'!';
+ document.getElementById('teamWinCopy').textContent=award.line+' Happy Ayudha Pooja to you and your family!';
+ shareMessage='🎉 I won the Ayudha Pooja Festive Surprise Challenge and unlocked the title “'+award.achievement+'”! '+(playerName?'— '+playerName+' ':'')+'🪔 Happy Ayudha Pooja from Brewkspace / F9 CYBRISKTECH! '+award.line+' '+location.href;
+ celebrate();result.scrollIntoView({behavior:'smooth',block:'center'});
+}else{gameArea.style.display='none';retry.style.display='block';retry.scrollIntoView({behavior:'smooth',block:'center'});}}
+function celebrate(){const root=document.getElementById('confetti');root.innerHTML='';const symbols=['🌼','✨','🌸','🪔','✦','🎉'];for(let i=0;i<70;i++){const el=document.createElement('span');el.className='piece';el.textContent=symbols[Math.floor(Math.random()*symbols.length)];el.style.left=Math.random()*100+'%';el.style.animationDuration=(2.2+Math.random()*3.5)+'s';el.style.animationDelay=(Math.random()*.8)+'s';el.style.fontSize=(14+Math.random()*17)+'px';root.appendChild(el)}setTimeout(()=>root.innerHTML='',6500);}
+document.getElementById('playerName').addEventListener('input',e=>{playerName=e.target.value.trim().slice(0,32);});
+document.getElementById('startBtn').addEventListener('click',reset);document.getElementById('retryBtn').addEventListener('click',reset);document.getElementById('againBtn').addEventListener('click',()=>{welcome.style.display='block';result.style.display='none';welcome.scrollIntoView({behavior:'smooth'});});
+document.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight'].includes(e.key))e.preventDefault();keys[e.key]=true});document.addEventListener('keyup',e=>keys[e.key]=false);
+function hold(btn,key){const down=e=>{e.preventDefault();keys[key]=true},up=()=>keys[key]=false;btn.addEventListener('pointerdown',down);['pointerup','pointerleave','pointercancel'].forEach(ev=>btn.addEventListener(ev,up));}
+hold(document.getElementById('leftBtn'),'ArrowLeft');hold(document.getElementById('rightBtn'),'ArrowRight');
+canvas.addEventListener('pointermove',e=>{if(!running)return;const r=canvas.getBoundingClientRect();basket.x=Math.max(0,Math.min(w-basket.width,e.clientX-r.left-basket.width/2));});
+canvas.addEventListener('pointerdown',e=>{if(!running)return;const r=canvas.getBoundingClientRect();basket.x=Math.max(0,Math.min(w-basket.width,e.clientX-r.left-basket.width/2));});
+document.getElementById('shareBtn').addEventListener('click',async()=>{
+ const status=document.getElementById('shareStatus');
+ const pageUrl=location.href;
+ const text=(shareMessage||'🪔 Happy Ayudha Pooja! Wishing you and your family happiness, prosperity and success. — Brewkspace / F9 CYBRISKTECH')+'\\n\\nPlay the challenge: '+pageUrl;
+ status.textContent='Preparing your greeting…';
+ if(navigator.share){
+   try{
+     await navigator.share({title:'Happy Ayudha Pooja | Brewkspace / F9 CYBRISKTECH',text:text,url:pageUrl});
+     status.textContent='Your greeting is ready to share. Thank you for spreading the festive cheer!';
+     return;
+   }catch(e){
+     if(e && e.name==='AbortError'){status.textContent='Sharing cancelled. You can still copy your greeting below.';}
+   }
+ }
+ try{
+   if(navigator.clipboard && window.isSecureContext){
+     await navigator.clipboard.writeText(text);
+     status.textContent='Greeting and game link copied! Paste them into WhatsApp or your team chat.';
+     return;
+   }
+ }catch(e){}
+ status.textContent='Copy the message below and share it with your colleagues.';
+ window.prompt('Copy your festive greeting and game link:',text);
+});
+window.addEventListener('resize',resize);
+})();
+</script>
+</body>
+</html>
