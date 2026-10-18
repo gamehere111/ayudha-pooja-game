@@ -163,12 +163,13 @@ function loop(now){if(!running)return;const dt=Math.min((now-last)/16,2);last=no
 function end(won){if(!running)return;running=false;clearInterval(timer);cancelAnimationFrame(raf);if(won){
  gameArea.style.display='none';result.style.display='block';
  const award=winMessages[Math.floor(Math.random()*winMessages.length)];
- const greeting=playerName ? 'Congratulations, '+playerName+'!' : 'Congratulations, champion!';
+ const enteredName=document.getElementById('playerName').value.trim().slice(0,32);
+ const greeting=enteredName ? 'Congratulations, '+enteredName+'!' : 'Congratulations, champion!';
  document.getElementById('winnerKicker').textContent=award.emoji+' Your surprise is unlocked';
- document.getElementById('winnerTitleRibbon').textContent=award.emoji+' '+award.title+' '+award.emoji;
+
  document.getElementById('personalWin').textContent=greeting+' You earned the title: '+award.title+'!';
  document.getElementById('teamWinCopy').textContent=award.line+' Happy Ayudha Pooja to you and your family!';
- shareMessage='🎉 I won the Ayudha Pooja Festive Surprise Challenge and unlocked the title “'+award.achievement+'”! '+(playerName?'— '+playerName+' ':'')+'🪔 Happy Ayudha Pooja from Brewkspace / F9 CYBRISKTECH! '+award.line+' '+location.href;
+ shareMessage='🎉 I won the Ayudha Pooja Festive Surprise Challenge and unlocked the title “'+award.achievement+'”! '+(enteredName?'— '+enteredName+' ':'')+'🪔 Happy Ayudha Pooja from Brewkspace / F9 CYBRISKTECH! '+award.line+' '+location.href;
  celebrate();result.scrollIntoView({behavior:'smooth',block:'center'});
 }else{gameArea.style.display='none';retry.style.display='block';retry.scrollIntoView({behavior:'smooth',block:'center'});}}
 function celebrate(){const root=document.getElementById('confetti');root.innerHTML='';const symbols=['🌼','✨','🌸','🪔','✦','🎉'];for(let i=0;i<70;i++){const el=document.createElement('span');el.className='piece';el.textContent=symbols[Math.floor(Math.random()*symbols.length)];el.style.left=Math.random()*100+'%';el.style.animationDuration=(2.2+Math.random()*3.5)+'s';el.style.animationDelay=(Math.random()*.8)+'s';el.style.fontSize=(14+Math.random()*17)+'px';root.appendChild(el)}setTimeout(()=>root.innerHTML='',6500);}
